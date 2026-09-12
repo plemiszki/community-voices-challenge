@@ -56,6 +56,36 @@ RSpec.describe RedditItem, type: :model do
     expect(create(:reddit_item).post).to be_nil
   end
 
+  describe ".ensure_ingested!" do
+    it "raises when no items exist at all" do
+      expect { RedditItem.ensure_ingested! }.to raise_error(RedditItem::NotIngestedError)
+    end
+
+    it "does not raise when items exist, regardless of embedding status" do
+      create(:reddit_item, embedded_at: nil)
+
+      expect { RedditItem.ensure_ingested! }.not_to raise_error
+    end
+  end
+
+  describe ".ensure_embedded!" do
+    it "raises NotIngestedError when no items exist at all" do
+      expect { RedditItem.ensure_embedded! }.to raise_error(RedditItem::NotIngestedError)
+    end
+
+    it "raises NotEmbeddedError when items exist but none are embedded" do
+      create(:reddit_item, embedded_at: nil)
+
+      expect { RedditItem.ensure_embedded! }.to raise_error(RedditItem::NotEmbeddedError)
+    end
+
+    it "does not raise when at least one item has been embedded" do
+      create(:reddit_item, embedded_at: Time.current)
+
+      expect { RedditItem.ensure_embedded! }.not_to raise_error
+    end
+  end
+
   describe ".date_range" do
     it "spans the earliest to the latest posted_at across all items" do
       create(:reddit_item, posted_at: Time.zone.parse("2026-09-06 10:00:00"))

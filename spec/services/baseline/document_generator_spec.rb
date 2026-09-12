@@ -5,8 +5,23 @@ RSpec.describe Baseline::DocumentGenerator do
 
   before do
     allow(claude_client).to receive(:generate).and_return("generated document")
-    create(:reddit_item, posted_at: Time.zone.parse("2026-09-06 10:00:00"))
-    create(:reddit_item, posted_at: Time.zone.parse("2026-09-12 15:00:00"))
+    create(:reddit_item, posted_at: Time.zone.parse("2026-09-06 10:00:00"), embedded_at: Time.current)
+    create(:reddit_item, posted_at: Time.zone.parse("2026-09-12 15:00:00"), embedded_at: Time.current)
+  end
+
+  it "raises without calling Claude when nothing has been ingested" do
+    RedditItem.delete_all
+
+    expect { described_class.call(claude_client: claude_client) }
+      .to raise_error(RedditItem::NotIngestedError)
+    expect(claude_client).not_to have_received(:generate)
+  end
+
+  it "does not raise merely because items aren't embedded — baseline never uses embeddings" do
+    RedditItem.delete_all
+    create(:reddit_item, embedded_at: nil)
+
+    expect { described_class.call(claude_client: claude_client) }.not_to raise_error
   end
 
   it "returns Claude's generated text" do

@@ -14,6 +14,7 @@ module Baseline
     end
 
     def call
+      RedditItem.ensure_ingested!
       claude_client.generate(system: system_prompt, user: user_prompt)
     end
 
