@@ -13,7 +13,8 @@ FactoryBot.define do
       item_type { :comment }
       title { nil }
       sequence(:reddit_id) { |n| "t1_#{n}" }
-      parent_reddit_id { "t3_1" }
+      association :post, factory: :reddit_item
+      parent_reddit_id { post.reddit_id }
       body { "Congrats, that's a huge milestone!" }
     end
   end

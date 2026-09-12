@@ -38,4 +38,21 @@ RSpec.describe RedditItem, type: :model do
   it "exposes item_type as an enum" do
     expect(build(:reddit_item, :comment)).to be_comment
   end
+
+  it "links a comment to its parent post" do
+    comment = create(:reddit_item, :comment)
+
+    expect(comment.post).to eq(RedditItem.find_by(reddit_id: comment.parent_reddit_id))
+  end
+
+  it "lists a post's comments" do
+    post = create(:reddit_item)
+    comment = create(:reddit_item, :comment, post: post)
+
+    expect(post.comments).to contain_exactly(comment)
+  end
+
+  it "has no post for a top-level post" do
+    expect(create(:reddit_item).post).to be_nil
+  end
 end
