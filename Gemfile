@@ -43,6 +43,9 @@ gem "thruster", require: false
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 gem "image_processing", "~> 1.2"
 
+# pgvector integration for ActiveRecord (vector columns, nearest-neighbor queries)
+gem "neighbor"
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
@@ -55,6 +58,15 @@ group :development, :test do
 
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
+
+  # Load ANTHROPIC_API_KEY / VOYAGE_API_KEY from .env in development and test
+  gem "dotenv-rails"
+
+  # RSpec test framework, replacing Minitest
+  gem "rspec-rails"
+
+  # Factories for test data, used instead of fixtures
+  gem "factory_bot_rails"
 end
 
 group :development do
@@ -66,4 +78,7 @@ group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem "capybara"
   gem "selenium-webdriver"
+
+  # Stub outbound HTTP (Voyage/Claude) so specs never hit real APIs
+  gem "webmock"
 end
