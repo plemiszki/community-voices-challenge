@@ -27,6 +27,10 @@ ENV RAILS_ENV="production" \
     BUNDLE_WITHOUT="development" \
     LD_PRELOAD="/usr/local/lib/libjemalloc.so"
 
+# Node, for building the Vite frontend (matches .nvmrc). Only its binaries are
+# copied into the build stage below — not part of the final runtime image.
+FROM docker.io/library/node:24.18.0-slim AS node
+
 # Throw-away build stage to reduce size of final image
 FROM base AS build
 
@@ -34,6 +38,13 @@ FROM base AS build
 RUN apt-get update -qq && \
     apt-get install --no-install-recommends -y build-essential git libpq-dev libvips libyaml-dev pkg-config && \
     rm -rf /var/lib/apt/lists /var/cache/apt/archives
+
+# Node (needed only here: vite_ruby's assets:precompile hook runs `npm ci` + `vite build`)
+COPY --from=node /usr/local/include/node /usr/local/include/node
+COPY --from=node /usr/local/lib/node_modules /usr/local/lib/node_modules
+COPY --from=node /usr/local/bin/node /usr/local/bin/node
+RUN ln -s /usr/local/lib/node_modules/npm/bin/npm-cli.js /usr/local/bin/npm && \
+    ln -s /usr/local/lib/node_modules/npm/bin/npx-cli.js /usr/local/bin/npx
 
 # Install application gems
 COPY vendor/* ./vendor/

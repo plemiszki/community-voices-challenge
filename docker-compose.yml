@@ -1,0 +1,40 @@
+services:
+  db:
+    image: pgvector/pgvector:pg18
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      # pg18+ images store data in a version-specific subdirectory under this
+      # parent path — mounting directly at .../postgresql/data is the old,
+      # now-rejected convention.
+      - db_data:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  app:
+    build: .
+    ports:
+      - "3000:80"
+    environment:
+      # config/database.yml defines 4 databases (primary, cache, queue, cable) —
+      # a plain DATABASE_URL only overrides "primary", so each needs its own
+      # <NAME>_DATABASE_URL override or the others fall back to a local socket.
+      DATABASE_URL: postgres://postgres:postgres@db:5432/community_voices_challenge_production
+      CACHE_DATABASE_URL: postgres://postgres:postgres@db:5432/community_voices_challenge_production_cache
+      QUEUE_DATABASE_URL: postgres://postgres:postgres@db:5432/community_voices_challenge_production_queue
+      CABLE_DATABASE_URL: postgres://postgres:postgres@db:5432/community_voices_challenge_production_cable
+      RAILS_MASTER_KEY: ${RAILS_MASTER_KEY}
+      # Document generation makes two sequential Claude calls and can take up
+      # to a minute — well past Thruster's 30s default HTTP_WRITE_TIMEOUT,
+      # which would otherwise kill the connection mid-request.
+      HTTP_WRITE_TIMEOUT: "120"
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  db_data:
