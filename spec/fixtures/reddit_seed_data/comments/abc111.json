@@ -1,0 +1,41 @@
+[
+  {
+    "kind": "Listing",
+    "data": {
+      "children": [
+        {
+          "kind": "t3",
+          "data": {
+            "name": "t3_abc111",
+            "id": "abc111",
+            "title": "Devlog: our combat system",
+            "selftext": "We rebuilt combat this week and it finally feels good.",
+            "author": "dev_alice",
+            "score": 120,
+            "created_utc": 1893456000,
+            "permalink": "/r/gamedev/comments/abc111/devlog_our_combat_system/"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "kind": "Listing",
+    "data": {
+      "children": [
+        { "kind": "t1", "data": { "name": "t1_c1", "parent_id": "t3_abc111", "link_id": "t3_abc111", "body": "Looks awesome!", "author": "u1", "score": 50, "created_utc": 1893457000, "permalink": "/r/gamedev/comments/abc111/x/c1/" } },
+        { "kind": "t1", "data": { "name": "t1_c2", "parent_id": "t3_abc111", "link_id": "t3_abc111", "body": "Nice work", "author": "u2", "score": 40, "created_utc": 1893457100, "permalink": "/r/gamedev/comments/abc111/x/c2/" } },
+        { "kind": "t1", "data": { "name": "t1_c3", "parent_id": "t3_abc111", "link_id": "t3_abc111", "body": "c3", "author": "u3", "score": 35, "created_utc": 1893457200, "permalink": "/r/gamedev/comments/abc111/x/c3/" } },
+        { "kind": "t1", "data": { "name": "t1_c4", "parent_id": "t3_abc111", "link_id": "t3_abc111", "body": "c4", "author": "u4", "score": 30, "created_utc": 1893457300, "permalink": "/r/gamedev/comments/abc111/x/c4/" } },
+        { "kind": "t1", "data": { "name": "t1_c5", "parent_id": "t3_abc111", "link_id": "t3_abc111", "body": "c5", "author": "u5", "score": 25, "created_utc": 1893457400, "permalink": "/r/gamedev/comments/abc111/x/c5/" } },
+        { "kind": "t1", "data": { "name": "t1_c6", "parent_id": "t3_abc111", "link_id": "t3_abc111", "body": "c6", "author": "u6", "score": 20, "created_utc": 1893457500, "permalink": "/r/gamedev/comments/abc111/x/c6/" } },
+        { "kind": "t1", "data": { "name": "t1_c7", "parent_id": "t3_abc111", "link_id": "t3_abc111", "body": "c7", "author": "u7", "score": 15, "created_utc": 1893457600, "permalink": "/r/gamedev/comments/abc111/x/c7/" } },
+        { "kind": "t1", "data": { "name": "t1_c8", "parent_id": "t3_abc111", "link_id": "t3_abc111", "body": "c8", "author": "u8", "score": 10, "created_utc": 1893457700, "permalink": "/r/gamedev/comments/abc111/x/c8/" } },
+        { "kind": "t1", "data": { "name": "t1_c9_lowest", "parent_id": "t3_abc111", "link_id": "t3_abc111", "body": "c9 should be excluded, ranked 9th", "author": "u9", "score": 5, "created_utc": 1893457800, "permalink": "/r/gamedev/comments/abc111/x/c9/" } },
+        { "kind": "t1", "data": { "name": "t1_deleted", "parent_id": "t3_abc111", "link_id": "t3_abc111", "body": "[deleted]", "author": "[deleted]", "score": 999, "created_utc": 1893457900, "permalink": "/r/gamedev/comments/abc111/x/deleted/" } },
+        { "kind": "t1", "data": { "name": "t1_reply", "parent_id": "t1_c1", "link_id": "t3_abc111", "body": "a reply to c1, not top level", "author": "u10", "score": 999, "created_utc": 1893458000, "permalink": "/r/gamedev/comments/abc111/x/reply/" } },
+        { "kind": "more", "data": { "children": [ "t1_more1", "t1_more2" ] } }
+      ]
+    }
+  }
+]
