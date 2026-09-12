@@ -11,4 +11,11 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   root to: "application#root"
+
+  namespace :api, defaults: { format: :json } do
+    post "ingestion", to: "ingestions#create"
+    post "community_voices_document", to: "community_voices_documents#create"
+    get "embeddings/visualization", to: "embeddings#visualization"
+    get "retrieval_stats", to: "retrieval_stats#index"
+  end
 end
