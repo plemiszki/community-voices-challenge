@@ -10,7 +10,10 @@
     "vite-plugin-ruby": "^5.2.3"
   },
   "dependencies": {
+    "dompurify": "^3.4.15",
+    "marked": "^18.0.12",
     "react": "^19.3.0",
-    "react-dom": "^19.3.0"
+    "react-dom": "^19.3.0",
+    "recharts": "^3.10.1"
   }
 }

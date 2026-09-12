@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   root to: "application#root"
 
   namespace :api, defaults: { format: :json } do
+    get "ingestion", to: "ingestions#show"
     post "ingestion", to: "ingestions#create"
     post "community_voices_document", to: "community_voices_documents#create"
     get "embeddings/visualization", to: "embeddings#visualization"

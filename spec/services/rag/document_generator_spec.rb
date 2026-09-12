@@ -94,6 +94,6 @@ RSpec.describe Rag::DocumentGenerator do
       user: a_string_including("[1] #{shared_item.embedding_text}")
         .and(satisfy { |text| !text.include?("[2]") })
     )
-    expect(result.scan(/^\[\d+\]/).size).to eq(1)
+    expect(result.scan(/^- \[\d+\]/).size).to eq(1)
   end
 end

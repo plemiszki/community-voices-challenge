@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
     "esModuleInterop": true, // import CommonJS modules as if they were ES modules (using import keyword)
-    "jsx": "react"
+    "jsx": "react-jsx"
   }
 }

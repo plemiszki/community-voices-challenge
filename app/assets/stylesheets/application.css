@@ -8,3 +8,239 @@
  *
  * Consider organizing styles into separate files for maintainability.
  */
+
+:root {
+  color-scheme: light;
+  --surface-1: #fcfcfb;
+  --page-plane: #f9f9f7;
+  --text-primary: #0b0b0b;
+  --text-secondary: #52514e;
+  --muted: #898781;
+  --gridline: #e1e0d9;
+  --baseline: #c3c2b7;
+  --border: rgba(11, 11, 11, 0.1);
+  --series-1: #2a78d6;
+  --series-2: #eb6834;
+  --status-good: #0ca30c;
+  --status-critical: #d03b3b;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+    --surface-1: #1a1a19;
+    --page-plane: #0d0d0d;
+    --text-primary: #ffffff;
+    --text-secondary: #c3c2b7;
+    --muted: #898781;
+    --gridline: #2c2c2a;
+    --baseline: #383835;
+    --border: rgba(255, 255, 255, 0.1);
+    --series-1: #3987e5;
+    --series-2: #d95926;
+    --status-good: #0ca30c;
+    --status-critical: #d03b3b;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 24px;
+  background: var(--page-plane);
+  color: var(--text-primary);
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+.app {
+  max-width: 1080px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.app-header h1 {
+  margin: 0 0 4px;
+  font-size: 1.75em;
+}
+
+.app-header p {
+  margin: 0;
+  color: var(--text-secondary);
+}
+
+.app-intro p {
+  margin: 0;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.panel {
+  background: var(--surface-1);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.panel h2 {
+  margin: 0 0 12px;
+  font-size: 1.2em;
+}
+
+.status-check {
+  margin-left: 8px;
+  color: var(--status-good);
+  font-weight: 700;
+}
+
+.instructions {
+  margin: 0;
+}
+
+.instructions + button {
+  margin-top: 16px;
+}
+
+.blocked-message {
+  margin-top: 16px;
+}
+
+button {
+  font: inherit;
+  padding: 8px 16px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: var(--series-1);
+  color: white;
+  cursor: pointer;
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.error {
+  color: var(--status-critical);
+}
+
+.result {
+  color: var(--text-secondary);
+}
+
+.comparison {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.document {
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 16px;
+  min-width: 0;
+}
+
+.document h3 {
+  margin: 0 0 8px;
+}
+
+.document-content {
+  font-size: 0.95em;
+  line-height: 1.5;
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+.document-content > *:first-child {
+  margin-top: 0;
+}
+
+.document-content > *:last-child {
+  margin-bottom: 0;
+}
+
+.document-content h1,
+.document-content h2,
+.document-content h3 {
+  margin: 16px 0 8px;
+  font-size: 1.05em;
+}
+
+.document-content p {
+  margin: 0 0 10px;
+}
+
+.document-content ul,
+.document-content ol {
+  margin: 0 0 10px;
+  padding-left: 20px;
+}
+
+.document-content li {
+  margin-bottom: 4px;
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+.document-content a {
+  color: var(--series-1);
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 12px;
+}
+
+th,
+td {
+  text-align: left;
+  padding: 8px;
+  border-bottom: 1px solid var(--gridline);
+  font-variant-numeric: tabular-nums;
+}
+
+th {
+  color: var(--muted);
+  font-weight: 600;
+  font-size: 0.85em;
+  text-transform: uppercase;
+}
+
+td a {
+  color: var(--series-1);
+}
+
+.chart-tooltip {
+  background: var(--surface-1);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 8px 12px;
+  max-width: 260px;
+}
+
+.chart-tooltip-value {
+  margin: 0;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.chart-tooltip-label {
+  margin: 2px 0;
+  color: var(--text-secondary);
+  font-size: 0.85em;
+}
+
+.chart-tooltip-snippet {
+  margin: 4px 0 0;
+  color: var(--text-secondary);
+  font-size: 0.85em;
+}

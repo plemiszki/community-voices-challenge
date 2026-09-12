@@ -85,8 +85,11 @@ module Rag
       items.map { |item| "[#{citation_number(item)}] #{item.embedding_text}" }.join("\n\n")
     end
 
+    # A real markdown bullet list ("- " prefix) so each source renders as its
+    # own line no matter how the markdown renderer treats plain line breaks —
+    # bare "[n] url" lines joined by "\n" collapse into one run-on paragraph.
     def sources_list
-      cited_items.each_with_index.map { |item, index| "[#{index + 1}] #{item.permalink}" }.join("\n")
+      cited_items.each_with_index.map { |item, index| "- [#{index + 1}] #{item.permalink}" }.join("\n")
     end
 
     def week_start
