@@ -53,6 +53,9 @@ gem "faraday"
 # Official Anthropic SDK for Claude
 gem "anthropic"
 
+# PCA for the embedding visualization (fpt solver needs no external BLAS/LAPACK)
+gem "rumale-decomposition"
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"

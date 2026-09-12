@@ -18,6 +18,7 @@ RSpec.describe Reddit::Ingestor do
   before do
     allow(Reddit::SeedLoader).to receive(:items).and_return([ attributes ])
     allow(Embeddings::BatchEmbedder).to receive(:call)
+    allow(Embeddings::PcaReducer).to receive(:call)
   end
 
   it "creates a RedditItem for each item returned by SeedLoader" do
@@ -46,6 +47,16 @@ RSpec.describe Reddit::Ingestor do
 
     expect(Embeddings::BatchEmbedder).to have_received(:call) do |reddit_items|
       expect(reddit_items).to contain_exactly(RedditItem.find_by(reddit_id: "t3_abc111"))
+    end
+  end
+
+  it "recomputes PCA over every embedded item, not just this run's new ones" do
+    previously_embedded = create(:reddit_item, embedded_at: 1.day.ago)
+
+    described_class.call
+
+    expect(Embeddings::PcaReducer).to have_received(:call) do |reddit_items|
+      expect(reddit_items).to include(previously_embedded)
     end
   end
 end

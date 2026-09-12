@@ -9,6 +9,10 @@ module Reddit
     def call
       SeedLoader.items.each { |attributes| upsert(attributes) }
       Embeddings::BatchEmbedder.call(RedditItem.where(embedded_at: nil))
+
+      # Recomputed over every embedded item, not just the new ones — PCA is a
+      # global fit, so adding items can shift what "most variance" even means.
+      Embeddings::PcaReducer.call(RedditItem.where.not(embedded_at: nil))
     end
 
     private
