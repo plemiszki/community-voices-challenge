@@ -17,6 +17,7 @@ RSpec.describe Reddit::Ingestor do
 
   before do
     allow(Reddit::SeedLoader).to receive(:items).and_return([ attributes ])
+    allow(Embeddings::BatchEmbedder).to receive(:call)
   end
 
   it "creates a RedditItem for each item returned by SeedLoader" do
@@ -38,5 +39,13 @@ RSpec.describe Reddit::Ingestor do
     described_class.call
 
     expect(RedditItem.find_by(reddit_id: "t3_abc111").score).to eq(999)
+  end
+
+  it "hands not-yet-embedded items to the batch embedder" do
+    described_class.call
+
+    expect(Embeddings::BatchEmbedder).to have_received(:call) do |reddit_items|
+      expect(reddit_items).to contain_exactly(RedditItem.find_by(reddit_id: "t3_abc111"))
+    end
   end
 end

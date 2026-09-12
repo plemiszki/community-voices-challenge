@@ -8,6 +8,7 @@ module Reddit
 
     def call
       SeedLoader.items.each { |attributes| upsert(attributes) }
+      Embeddings::BatchEmbedder.call(RedditItem.where(embedded_at: nil))
     end
 
     private

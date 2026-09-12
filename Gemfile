@@ -47,6 +47,9 @@ gem "image_processing", "~> 1.2"
 # pgvector integration for ActiveRecord (vector columns, nearest-neighbor queries)
 gem "neighbor"
 
+# HTTP client for Voyage AI (no official Ruby SDK exists)
+gem "faraday"
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"

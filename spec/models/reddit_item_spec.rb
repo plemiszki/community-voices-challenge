@@ -55,4 +55,31 @@ RSpec.describe RedditItem, type: :model do
   it "has no post for a top-level post" do
     expect(create(:reddit_item).post).to be_nil
   end
+
+  describe "#embedding_text" do
+    it "combines a post's title and body" do
+      post = build(:reddit_item, title: "Devlog update", body: "We shipped a new feature.")
+
+      expect(post.embedding_text).to eq("Devlog update\n\nWe shipped a new feature.")
+    end
+
+    it "falls back to just the title when a post has no body" do
+      post = build(:reddit_item, title: "Screenshot Saturday", body: "")
+
+      expect(post.embedding_text).to eq("Screenshot Saturday")
+    end
+
+    it "anchors a comment to its parent post's title" do
+      parent = build(:reddit_item, title: "Devlog update")
+      comment = build(:reddit_item, :comment, post: parent, body: "Great progress!")
+
+      expect(comment.embedding_text).to eq("Context: Devlog update\n\nComment: Great progress!")
+    end
+
+    it "truncates long text to EMBEDDING_TEXT_MAX_LENGTH" do
+      post = build(:reddit_item, title: "Long devlog", body: "a" * 2000)
+
+      expect(post.embedding_text.length).to eq(RedditItem::EMBEDDING_TEXT_MAX_LENGTH)
+    end
+  end
 end
