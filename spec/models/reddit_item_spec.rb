@@ -56,6 +56,18 @@ RSpec.describe RedditItem, type: :model do
     expect(create(:reddit_item).post).to be_nil
   end
 
+  describe ".date_range" do
+    it "spans the earliest to the latest posted_at across all items" do
+      create(:reddit_item, posted_at: Time.zone.parse("2026-09-06 10:00:00"))
+      create(:reddit_item, posted_at: Time.zone.parse("2026-09-10 08:00:00"))
+      create(:reddit_item, posted_at: Time.zone.parse("2026-09-12 15:00:00"))
+
+      expect(RedditItem.date_range).to eq(
+        Time.zone.parse("2026-09-06 10:00:00")..Time.zone.parse("2026-09-12 15:00:00")
+      )
+    end
+  end
+
   describe "#embedding_text" do
     it "combines a post's title and body" do
       post = build(:reddit_item, title: "Devlog update", body: "We shipped a new feature.")
