@@ -40,7 +40,11 @@ Step 6 - Navigate to [localhost:3000](http://localhost:3000).
 
 Step 1 - Click the "Run Ingestion" button to ingest the raw JSON data from Reddit, and create embeddings for each post and comment. The "Embedding Space" visualization will be available after this step.
 
+https://github.com/user-attachments/assets/566cc837-4ef3-432b-8eb8-39a621b9e8d5
+
 Step 2 - Click the "Generate Documents" button to generate the two documents - one with RAG and one without. You can then read and compare the documents, side by side. The "Most Retrieved" table, showing which posts/comments were retrieved most often, will be populated after this step.
+
+https://github.com/user-attachments/assets/751616b5-2d4d-4ac5-aa97-ccf26ddb077f
 
 ## Explanation
 
