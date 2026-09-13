@@ -105,6 +105,12 @@ body {
   margin-top: 16px;
 }
 
+.chart-caption {
+  color: var(--text-secondary);
+  font-size: 0.85em;
+  margin-bottom: 12px;
+}
+
 .blocked-message {
   margin-top: 16px;
 }

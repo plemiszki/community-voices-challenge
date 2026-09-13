@@ -84,22 +84,29 @@ export default function EmbeddingScatterPlot({ ingested, refreshKey }: Props) {
       {!ingested ? (
         <p className="instructions">Run ingestion to see visualization.</p>
       ) : (
-        <ScatterChart width={640} height={420} margin={{ top: 16, right: 16, bottom: 16, left: 16 }}>
-          <CartesianGrid stroke={theme.gridline} />
-          <XAxis type="number" dataKey="x" tick={{ fill: theme.muted }} stroke={theme.baseline} />
-          <YAxis type="number" dataKey="y" tick={{ fill: theme.muted }} stroke={theme.baseline} />
-          <Tooltip content={<EmbeddingTooltip />} cursor={{ strokeDasharray: "3 3" }} />
-          <Legend />
-          {SERIES.map((series) => (
-            <Scatter
-              key={series.type}
-              name={series.label}
-              data={points.filter((point) => point.item_type === series.type)}
-              fill={theme[series.type]}
-              shape={pointShape(theme[series.type], theme.surface)}
-            />
-          ))}
-        </ScatterChart>
+        <>
+          <p className="instructions chart-caption">
+            Each point's position reflects overall semantic similarity, flattened from 1024
+            embedding dimensions down to 2 — proximity is meaningful, but the axis directions
+            themselves don't correspond to a single interpretable concept.
+          </p>
+          <ScatterChart width={640} height={420} margin={{ top: 16, right: 16, bottom: 16, left: 16 }}>
+            <CartesianGrid stroke={theme.gridline} />
+            <XAxis type="number" dataKey="x" tick={{ fill: theme.muted }} stroke={theme.baseline} />
+            <YAxis type="number" dataKey="y" tick={{ fill: theme.muted }} stroke={theme.baseline} />
+            <Tooltip content={<EmbeddingTooltip />} cursor={{ strokeDasharray: "3 3" }} />
+            <Legend />
+            {SERIES.map((series) => (
+              <Scatter
+                key={series.type}
+                name={series.label}
+                data={points.filter((point) => point.item_type === series.type)}
+                fill={theme[series.type]}
+                shape={pointShape(theme[series.type], theme.surface)}
+              />
+            ))}
+          </ScatterChart>
+        </>
       )}
     </section>
   )
